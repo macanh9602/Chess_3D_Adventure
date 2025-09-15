@@ -101,3 +101,7 @@ InitTestScene*.unity*
 =======
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 >>>>>>> db0ecf4454e18c9951984c5d0b823c087bb83be3
+
+# Ignore custom package
+Assets/vFavorites/
+Assets/vFavorites.meta
