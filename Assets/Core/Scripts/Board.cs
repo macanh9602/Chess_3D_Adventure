@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+namespace ChessMaster.Core
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Board : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Cell[,] cells = new Cell[8, 8];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public bool IsCellEmpty(Cell cell)
+        {
+            return cell.OccupiedPiece == null;
+        }
     }
 }
