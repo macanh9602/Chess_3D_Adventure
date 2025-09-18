@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ChessMaster.sln"
+    "dotnet.defaultSolution": "Chess_3D_Adventure.sln"
 }

@@ -54,5 +54,12 @@ namespace ChessMaster.Core
         public int X;
         public int Y;
         public Piece OccupiedPiece;
+
+        public Cell(int x, int y)
+        {
+            X = x;
+            Y = y;
+            OccupiedPiece = null;
+        }
     }
 }

@@ -13,6 +13,7 @@ public class PawnMoveRule : IMoveRule
     public bool IsMoveValid(Board board, Cell from, Cell to)
     {
         // Implement pawn-specific move validation logic here
+
         return false;
     }
 }
@@ -51,6 +52,7 @@ public class QueenMoveRule : IMoveRule
         // Implement queen-specific move validation logic here
         return true;
     }
+
 }
 
 public class KingMoveRule : IMoveRule
