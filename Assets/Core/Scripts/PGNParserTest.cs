@@ -25,11 +25,21 @@ namespace ChessMaster.Core
                 
                 Debug.Log($"Testing with move sequence: {testMoveSequence.Substring(0, Math.Min(50, testMoveSequence.Length))}...");
                 
-                // Generate board from PGN
-                gameManager.GenerateBoardFromPGN(testMoveSequence);
+                // Test with a simpler sequence first
+                string simpleTest = "d4 d5 c4 e6 Nc3 Nf6";
+                Debug.Log($"Testing simple sequence: {simpleTest}");
                 
-                // Print board state
-                PrintBoardState(gameManager.Board);
+                gameManager.GenerateBoardFromPGN(simpleTest);
+                
+                // Print board state using the new visualization method
+                Debug.Log("Board state after simple moves:\n" + gameManager.GetBoardVisualization());
+                
+                // Now test with the full sequence
+                GameManager fullGameManager = new GameManager();
+                Debug.Log("Testing full move sequence...");
+                fullGameManager.GenerateBoardFromPGN(testMoveSequence);
+                
+                Debug.Log("Final board state:\n" + fullGameManager.GetBoardVisualization());
                 
                 Debug.Log("PGN Parser Test completed successfully!");
             }
