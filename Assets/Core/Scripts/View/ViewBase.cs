@@ -7,10 +7,10 @@ namespace ChessMaster.Core
         //===================================================
         #region [Properties]
         protected MeshRenderer _meshRenderer;
-        public MeshRenderer MeshRenderer => _meshRenderer ??= GetComponent<MeshRenderer>();
+        public MeshRenderer MeshRenderer => _meshRenderer ??= GetComponentInChildren<MeshRenderer>();
 
         protected MeshFilter _meshFilter;
-        public MeshFilter MeshFilter => _meshFilter ??= GetComponent<MeshFilter>();
+        public MeshFilter MeshFilter => _meshFilter ??= GetComponentInChildren<MeshFilter>();
 
         private Material _originalMaterial;
         private Material _currentMaterial;

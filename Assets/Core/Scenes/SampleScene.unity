@@ -214,6 +214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 832046455}
+  - {fileID: 695064634}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -248,6 +249,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &695064633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695064634}
+  m_Layer: 0
+  m_Name: Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &695064634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695064633}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 214389729}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &701549465
 PrefabInstance:
@@ -420,9 +452,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardParent: {fileID: 832046455}
+  themeType: 0
+  txtInfo: {fileID: 5950467618218345663, guid: 8c14a33b675d74ffca468a32ed2105ff, type: 3}
+  txtHolder: {fileID: 695064634}
   CellPrefab: {fileID: 1850927171784521407, guid: 8deec57fbb47d47e6be38f4f8b3079e5, type: 3}
-  PiecePrefab: {fileID: -1674370672930576819, guid: f3b39c32c777345a2b50de7d6d07b6aa, type: 3}
   CellSize: 1
+  usePGN: 1
+  pgnMoves: d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 cxd5 exd5 e3 Bf5 Bd3 Bxd3 Qxd3 c6 Nge2 Nbd7
+    f3 O-O h4 h6 Bf4 Re8 g4 Nf8 g5 hxg5 hxg5 N6h7 O-O-O Bxg5 Rdg1 Bxf4 Nxf4 Qe7 Kd2
+    Nf6 Rg2 g6 Nxg6 Nxg6 f4 Ne4+ Nxe4 dxe4 Qe2 Qb4+ Kc2 Qb5 Qg4 Qd3+ Kc1 Qxe3+ Kb1
+    Qd3+ Ka1 Qxd4
 --- !u!1 &903456939
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +471,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903456940}
+  - component: {fileID: 903456941}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -454,6 +494,22 @@ Transform:
   m_Father: {fileID: 713232661}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &903456941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903456939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c26d09d0cfe3f747b57eb244c599441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startupPoolMode: 0
+  startupPools:
+  - size: 16
+    prefab: {fileID: 8087448824866686205, guid: 8c14a33b675d74ffca468a32ed2105ff, type: 3}
 --- !u!1 &1162915660
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1a54f1e7a174e489d0cbdb4bcc339e, type: 3}
+  m_Name: Default_Theme
+  m_EditorClassIdentifier: 
+  type: 0
+  icon: {fileID: 0}
+  pieceConfigs:
+  - type: 1
+    prefab: {fileID: -1674370672930576819, guid: f3b39c32c777345a2b50de7d6d07b6aa, type: 3}
+  - type: 2
+    prefab: {fileID: -4572482456019064105, guid: 6a1f02f29d6a3489590b8685c76b1c37, type: 3}
+  - type: 3
+    prefab: {fileID: -4820362651012834673, guid: 77c4aebd3283b4d45bf3e37cffcb3d6b, type: 3}
+  - type: 4
+    prefab: {fileID: 6070013043751996916, guid: d92d4a028251c4307bac89b98de0eb65, type: 3}
+  - type: 5
+    prefab: {fileID: -2281768089354762295, guid: 09450f127d10144d298e71e8228bbffc, type: 3}
+  - type: 6
+    prefab: {fileID: 8218779826103848785, guid: 5d873b8255094427681fdaaa34d4a723, type: 3}
+  blackMat: {fileID: 2100000, guid: 6a9dab0038bfc4c3a99fbf49c5957a19, type: 2}
+  whiteMat: {fileID: 2100000, guid: 4ce12d2ee09c347b3b5f6ae5c9672de4, type: 2}

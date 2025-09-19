@@ -22,9 +22,9 @@ namespace ChessMaster.Core
         public void ParseAndApplyMoves(string moveString)
         {
             SetupInitialBoard();
-            
+
             string[] moves = moveString.Trim().Split(' ');
-            
+
             foreach (string move in moves)
             {
                 if (!string.IsNullOrWhiteSpace(move))
@@ -135,7 +135,7 @@ namespace ChessMaster.Core
 
             // Convert to board coordinates
             var toCoords = AlgebraicToCoordinates(toSquare);
-            
+
             // Find the piece to move
             Cell fromCell = FindPieceToMove(pieceType, fromSquare, toCoords, isCapture);
             Cell toCell = _board.GetCell(toCoords.x, toCoords.y);
@@ -156,10 +156,10 @@ namespace ChessMaster.Core
         private (int x, int y) AlgebraicToCoordinates(string algebraic)
         {
             if (algebraic.Length != 2) return (-1, -1);
-            
+
             int x = algebraic[0] - 'a'; // a-h -> 0-7
             int y = algebraic[1] - '1'; // 1-8 -> 0-7
-            
+
             return (x, y);
         }
 
@@ -176,8 +176,8 @@ namespace ChessMaster.Core
                 for (int y = 0; y < Board.Size; y++)
                 {
                     Cell cell = _board.GetCell(x, y);
-                    if (cell?.OccupiedPiece != null && 
-                        cell.OccupiedPiece.Type == pieceType && 
+                    if (cell?.OccupiedPiece != null &&
+                        cell.OccupiedPiece.Type == pieceType &&
                         cell.OccupiedPiece.Color == _currentTurn)
                     {
                         // Check if this piece can move to target square
@@ -268,10 +268,10 @@ namespace ChessMaster.Core
             {
                 // Forward movement
                 if (deltaX != 0) return false;
-                
+
                 // One square forward
                 if (deltaY == direction) return true;
-                
+
                 // Two squares forward from starting position
                 int startingRank = color == PieceColor.White ? 1 : 6;
                 return fromCell.Y == startingRank && deltaY == 2 * direction;
@@ -286,7 +286,7 @@ namespace ChessMaster.Core
             int deltaX = to.X - from.X;
             int deltaY = to.Y - from.Y;
             int steps = Mathf.Max(Mathf.Abs(deltaX), Mathf.Abs(deltaY));
-            
+
             if (steps <= 1) return true;
 
             int stepX = deltaX == 0 ? 0 : deltaX / Mathf.Abs(deltaX);
@@ -310,7 +310,7 @@ namespace ChessMaster.Core
         private void HandleCastling(string move)
         {
             int y = _currentTurn == PieceColor.White ? 0 : 7;
-            
+
             if (move == "O-O") // King-side castling
             {
                 // Move king

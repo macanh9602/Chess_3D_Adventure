@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 using VTLTools;
 
 namespace ChessMaster.Core
@@ -8,13 +10,15 @@ namespace ChessMaster.Core
     public class BoardRenderer : MonoBehaviour
     {
         [SerializeField] Transform boardParent;
+        [SerializeField] ThemeType themeType = ThemeType.Default;
+        [SerializeField] Transform txtInfo;
+        [SerializeField] Transform txtHolder;
         public CellView CellPrefab;
-        public PieceView PiecePrefab;
         public float CellSize = 1f;
-        
+
         [Header("PGN Testing")]
         [SerializeField] private bool usePGN = false;
-        [SerializeField] [TextArea(3, 10)] private string pgnMoves = "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 cxd5 exd5 e3 Bf5 Bd3 Bxd3 Qxd3 c6";
+        [SerializeField][TextArea(3, 10)] private string pgnMoves = "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 cxd5 exd5 e3 Bf5 Bd3 Bxd3 Qxd3 c6";
 
         private GameManager _gameManager;
         private CellView[,] _cellViews;
@@ -29,7 +33,7 @@ namespace ChessMaster.Core
             _pieceViews = new PieceView[Board.Size, Board.Size];
 
             RenderBoard();
-            
+
             if (usePGN && !string.IsNullOrEmpty(pgnMoves))
             {
                 PlacePiecesFromPGN();
@@ -53,6 +57,28 @@ namespace ChessMaster.Core
                     cellView.Init(x, y, this);
                     cellView.SetUpPosition(startPoint + new Vector3(x * CellSize, y * CellSize, 0), boardParent);
                     _cellViews[x, y] = cellView;
+                    if (x == 0)
+                    {
+                        //number
+                        int number = y + 1;
+                        Transform prf = ObjectPool.Spawn(txtInfo);
+                        Text txt = prf.GetComponentInChildren<Text>();
+                        txt.text = number.ToString();
+                        prf.transform.position = cellView.transform.position + new Vector3(-1f, 0, 0);
+                        prf.transform.Rotate(90, 0, 0);
+                        prf.SetParent(txtHolder);
+                    }
+                    if (y == 0)
+                    {
+                        //letter
+                        char letter = (char)('a' + x);
+                        Transform prf = ObjectPool.Spawn(txtInfo);
+                        Text txt = prf.GetComponentInChildren<Text>();
+                        txt.text = letter.ToString();
+                        prf.transform.position = cellView.transform.position + new Vector3(0, 0, -1);
+                        prf.transform.Rotate(90, 0, 0);
+                        prf.SetParent(txtHolder);
+                    }
                 }
             }
         }
@@ -68,16 +94,29 @@ namespace ChessMaster.Core
             SpawnPiece(board.Cells[0, 1]);
             SpawnPiece(board.Cells[0, 6]);
         }
-
+        [Button]
         private void PlacePiecesFromPGN()
         {
+            //clear all _pieceViews
+            for (int x = 0; x < Board.Size; x++)
+            {
+                for (int y = 0; y < Board.Size; y++)
+                {
+                    if (_pieceViews[x, y] != null)
+                    {
+                        Destroy(_pieceViews[x, y].gameObject);
+                        _pieceViews[x, y] = null;
+                    }
+                }
+            }
+
             Debug.Log($"Generating board from PGN: {pgnMoves.Substring(0, Mathf.Min(50, pgnMoves.Length))}...");
-            
+
             try
             {
                 // Generate board from PGN notation
                 _gameManager.GenerateBoardFromPGN(pgnMoves);
-                
+
                 // Spawn visual pieces for all occupied cells
                 for (int x = 0; x < Board.Size; x++)
                 {
@@ -90,7 +129,7 @@ namespace ChessMaster.Core
                         }
                     }
                 }
-                
+
                 Debug.Log("Board generated successfully from PGN!");
             }
             catch (System.Exception e)
@@ -105,9 +144,10 @@ namespace ChessMaster.Core
         private void SpawnPiece(Cell cell)
         {
             Vector3 startPoint = new Vector3(-Board.Size / 2f, -Board.Size / 2f, 0);
-            var pieceView = Instantiate(PiecePrefab);
+            PieceView prefab = ListThemeConfig.GetPiecePrefab(themeType, cell.OccupiedPiece.Type);
+            var pieceView = Instantiate(prefab);
             pieceView.Init(cell.OccupiedPiece);
-            pieceView.SetUpPosition(startPoint + new Vector3(cell.X * CellSize, cell.Y * CellSize, -1), boardParent);
+            pieceView.SetUpPosition(startPoint + new Vector3(cell.X * CellSize, cell.Y * CellSize, -0.5f), boardParent);
             _pieceViews[cell.X, cell.Y] = pieceView;
         }
 

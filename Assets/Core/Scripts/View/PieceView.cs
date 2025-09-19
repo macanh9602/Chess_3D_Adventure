@@ -23,6 +23,15 @@ namespace ChessMaster.Core
             ChangeColor(color);
         }
 
+        public override void ChangeColor(Color color)
+        {
+            //base.ChangeColor(color);
+            // có thể thêm hiệu ứng sáng lên khi chọn
+            var theme = ListThemeConfig.GetThemeConfig(ThemeType.Default);
+            Material mat = (Piece.Color == PieceColor.White) ? theme.whiteMat : theme.blackMat;
+            MeshRenderer.material = mat;
+        }
+
         public override void SetUpPosition(Vector3 origin, Transform parent)
         {
             base.SetUpPosition(origin, parent);
