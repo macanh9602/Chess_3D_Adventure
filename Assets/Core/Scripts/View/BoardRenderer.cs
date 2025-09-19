@@ -7,8 +7,8 @@ namespace ChessMaster.Core
     public class BoardRenderer : MonoBehaviour
     {
         [SerializeField] Transform boardParent;
-        public GameObject CellPrefab;
-        public GameObject PiecePrefab;
+        public CellView CellPrefab;
+        public PieceView PiecePrefab;
         public float CellSize = 1f;
 
         private GameManager _gameManager;
@@ -35,9 +35,8 @@ namespace ChessMaster.Core
             {
                 for (int y = 0; y < Board.Size; y++)
                 {
-                    var cellGO = Instantiate(CellPrefab);
+                    var cellView = Instantiate(CellPrefab);
 
-                    var cellView = cellGO.AddComponent<CellView>();
                     cellView.Init(x, y, this);
                     cellView.SetUpPosition(startPoint + new Vector3(x * CellSize, y * CellSize, 0), boardParent);
                     _cellViews[x, y] = cellView;
@@ -60,10 +59,9 @@ namespace ChessMaster.Core
         private void SpawnPiece(Cell cell)
         {
             Vector3 startPoint = new Vector3(-Board.Size / 2f, -Board.Size / 2f, 0);
-            var pieceGO = Instantiate(PiecePrefab);
-            var pieceView = pieceGO.AddComponent<PieceView>();
+            var pieceView = Instantiate(PiecePrefab);
             pieceView.Init(cell.OccupiedPiece);
-            pieceView.SetUpPosition(startPoint + new Vector3(cell.X * CellSize, cell.Y * CellSize, 0), boardParent);
+            pieceView.SetUpPosition(startPoint + new Vector3(cell.X * CellSize, cell.Y * CellSize, -1), boardParent);
             _pieceViews[cell.X, cell.Y] = pieceView;
         }
 
