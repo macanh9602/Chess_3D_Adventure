@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VTLTools;
 
 namespace ChessMaster.Core
 {
@@ -98,8 +99,9 @@ namespace ChessMaster.Core
                 Destroy(_pieceViews[to.X, to.Y].gameObject); // ăn quân
             }
 
-            pieceView.transform.position = new Vector3(to.X * CellSize, to.Y * CellSize, -1);
+            pieceView.transform.position = new Vector3(to.X * CellSize, to.Y * CellSize, -0.5f);
             _pieceViews[to.X, to.Y] = pieceView;
         }
     }
+
 }
