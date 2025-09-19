@@ -12,7 +12,7 @@ namespace ChessMaster.Core
         Rook,
         Queen,
         King
-    }//
+    }
 
     public enum PieceColor
     {
