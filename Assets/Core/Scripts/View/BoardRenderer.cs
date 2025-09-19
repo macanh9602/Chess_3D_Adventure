@@ -11,6 +11,10 @@ namespace ChessMaster.Core
         public CellView CellPrefab;
         public PieceView PiecePrefab;
         public float CellSize = 1f;
+        
+        [Header("PGN Testing")]
+        [SerializeField] private bool usePGN = false;
+        [SerializeField] [TextArea(3, 10)] private string pgnMoves = "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 cxd5 exd5 e3 Bf5 Bd3 Bxd3 Qxd3 c6";
 
         private GameManager _gameManager;
         private CellView[,] _cellViews;
@@ -25,7 +29,15 @@ namespace ChessMaster.Core
             _pieceViews = new PieceView[Board.Size, Board.Size];
 
             RenderBoard();
-            PlacePiecesTest(); // tạm thời set quân test
+            
+            if (usePGN && !string.IsNullOrEmpty(pgnMoves))
+            {
+                PlacePiecesFromPGN();
+            }
+            else
+            {
+                PlacePiecesTest(); // tạm thời set quân test
+            }
         }
 
         private void RenderBoard()
@@ -55,6 +67,39 @@ namespace ChessMaster.Core
 
             SpawnPiece(board.Cells[0, 1]);
             SpawnPiece(board.Cells[0, 6]);
+        }
+
+        private void PlacePiecesFromPGN()
+        {
+            Debug.Log($"Generating board from PGN: {pgnMoves.Substring(0, Mathf.Min(50, pgnMoves.Length))}...");
+            
+            try
+            {
+                // Generate board from PGN notation
+                _gameManager.GenerateBoardFromPGN(pgnMoves);
+                
+                // Spawn visual pieces for all occupied cells
+                for (int x = 0; x < Board.Size; x++)
+                {
+                    for (int y = 0; y < Board.Size; y++)
+                    {
+                        Cell cell = _gameManager.Board.Cells[x, y];
+                        if (cell.OccupiedPiece != null)
+                        {
+                            SpawnPiece(cell);
+                        }
+                    }
+                }
+                
+                Debug.Log("Board generated successfully from PGN!");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to generate board from PGN: {e.Message}");
+                Debug.LogError($"Stack trace: {e.StackTrace}");
+                // Fall back to test pieces
+                PlacePiecesTest();
+            }
         }
 
         private void SpawnPiece(Cell cell)
