@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using DP.Utilities;
 using UnityEngine;
 
 namespace ChessMaster.Core
 {
+    [System.Serializable]
     public class AlgebraicNotationParser
     {
         private Board _board;
@@ -33,6 +35,23 @@ namespace ChessMaster.Core
                     SwitchTurn();
                 }
             }
+        }
+        List<string> steps = new List<string>();
+        [SerializeField] int currentStep = 0;
+        public void MoveStepByStep(string moveString)
+        {
+            DPDebug.Log($"<color=green>Ping</color>");
+            SetupInitialBoard();
+            steps.Clear();
+            steps.AddRange(moveString.Trim().Split(' '));
+            ParseAndApplyMove(steps[currentStep]);
+            SwitchTurn();
+            currentStep++;
+            if (currentStep >= steps.Count)
+            {
+                currentStep = 0;
+            }
+            DPDebug.Log($"<color=green>[DA]</color> Current step: {currentStep} / {steps.Count}");
         }
 
         /// <summary>

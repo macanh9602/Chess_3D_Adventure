@@ -20,7 +20,7 @@ namespace ChessMaster.Core
         [SerializeField] private bool usePGN = false;
         [SerializeField][TextArea(3, 10)] private string pgnMoves = "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 cxd5 exd5 e3 Bf5 Bd3 Bxd3 Qxd3 c6";
 
-        private GameManager _gameManager;
+        public GameManager _gameManager;
         private CellView[,] _cellViews;
         private PieceView[,] _pieceViews;
 
@@ -115,7 +115,7 @@ namespace ChessMaster.Core
             try
             {
                 // Generate board from PGN notation
-                _gameManager.GenerateBoardFromPGN(pgnMoves);
+                _gameManager.GenerateBoardFromPGN("");
 
                 // Spawn visual pieces for all occupied cells
                 for (int x = 0; x < Board.Size; x++)
@@ -187,6 +187,13 @@ namespace ChessMaster.Core
             pieceView.transform.position = new Vector3(to.X * CellSize, to.Y * CellSize, -0.5f);
             _pieceViews[to.X, to.Y] = pieceView;
         }
+
+        [Button]
+        public void NextStep()
+        {
+            _gameManager._pgnParser.MoveStepByStep(pgnMoves);
+        }
     }
 
 }
+

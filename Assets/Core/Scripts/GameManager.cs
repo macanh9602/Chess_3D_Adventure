@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ChessMaster.Core
 {
+    [System.Serializable]
     public class GameManager
     {
         public Board Board { get; private set; }
         public PieceColor CurrentTurn { get; private set; }
 
         private MoveValidator _validator;
-        private AlgebraicNotationParser _pgnParser;
+        public AlgebraicNotationParser _pgnParser;
 
         public GameManager()
         {
@@ -61,7 +62,7 @@ namespace ChessMaster.Core
         public string GetBoardVisualization()
         {
             string result = "   a b c d e f g h\n";
-            
+
             for (int y = 7; y >= 0; y--) // Print from rank 8 to 1
             {
                 result += $"{y + 1}: ";
@@ -80,7 +81,7 @@ namespace ChessMaster.Core
                 }
                 result += "\n";
             }
-            
+
             return result;
         }
 
@@ -96,7 +97,7 @@ namespace ChessMaster.Core
                 case PieceType.Queen: symbol = "Q"; break;
                 case PieceType.King: symbol = "K"; break;
             }
-            
+
             return piece.Color == PieceColor.White ? symbol : symbol.ToLower();
         }
     }
